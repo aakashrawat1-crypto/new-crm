@@ -1,0 +1,223 @@
+{
+  "users": [
+    {
+      "id": "fc260726-0140-4dbc-ba44-9738dd7f844a",
+      "createdAt": "2026-02-13T09:58:30.690Z",
+      "name": "ayush",
+      "email": "ayush.negi@grazziti.com",
+      "password": "$2a$10$CvG64a7eBov6Sluj21F9P.atnpIefVOY082YNs3DJA3v0TyEVSfgO",
+      "role": "SALES_REP"
+    },
+    {
+      "id": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "createdAt": "2026-02-16T06:49:30.767Z",
+      "name": "ayush",
+      "email": "ayush@gmail.com",
+      "password": "$2a$10$/uXG/b8JmMtzYDXmkE92qehPHhBPxHyamp4ND1qXmt45a0j.C9fJ6",
+      "role": "SALES_REP"
+    }
+  ],
+  "leads": [
+    {
+      "id": "f5db3399-ad16-4804-bef9-f3c9348ab61f",
+      "createdAt": "2026-02-13T09:59:31.181Z",
+      "companyName": "accolite",
+      "contactName": "akash",
+      "email": "akash.rawat@gmail.com",
+      "phone": "1883439134",
+      "status": "New",
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a",
+      "accountId": "fe39e481-f93c-4b6f-a7df-50905aa4e8c1",
+      "contactId": "2060e7b4-5107-40a9-9efe-794b1693b274",
+      "opportunityId": "1884ecca-7a45-4843-b93d-181c0677bd9a"
+    },
+    {
+      "id": "4acc2bd3-00ec-433e-a9dd-b975b4fe1486",
+      "createdAt": "2026-02-13T10:00:38.424Z",
+      "companyName": "accolite",
+      "contactName": "ayush",
+      "email": "ayush@gmail.com",
+      "phone": "7454979523",
+      "status": "New",
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a",
+      "accountId": "fe39e481-f93c-4b6f-a7df-50905aa4e8c1",
+      "contactId": "8835548d-7438-4bcc-b72a-5b701c0989b5",
+      "opportunityId": "8e7ecdc5-558d-4f16-a027-c7e12b1b9319"
+    },
+    {
+      "id": "97e67758-586f-4f1f-b3b0-64f5b68e487a",
+      "createdAt": "2026-02-13T10:01:22.397Z",
+      "companyName": "grazziti",
+      "contactName": "ayush",
+      "email": "ayush@gmail.com",
+      "phone": "6488439439",
+      "status": "New",
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a",
+      "accountId": "68bd020a-c400-4a48-bb62-ba5c315557bc",
+      "contactId": "f4336713-4cf3-47b0-a3e6-d947a8f333d0",
+      "opportunityId": "a524cb62-462a-450e-a2bd-8d4795b6e2fd"
+    },
+    {
+      "id": "a219dfcd-49c7-46be-b500-f87adc58c42c",
+      "createdAt": "2026-02-13T10:46:10.058Z",
+      "companyName": "grazziti",
+      "contactName": "piyush",
+      "email": "piyush@gmail.com",
+      "phone": "1234567890",
+      "status": "New",
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a",
+      "accountId": "68bd020a-c400-4a48-bb62-ba5c315557bc",
+      "contactId": "9552d922-4efd-48da-a4d4-9b3ad6ae81d7",
+      "opportunityId": "3c2495b6-73c4-40b3-a7ee-81bd41b0a766"
+    },
+    {
+      "id": "12deddb7-adea-49f5-ad4a-cea05aa1dfc3",
+      "createdAt": "2026-02-16T10:22:40.188Z",
+      "companyName": "wipro",
+      "contactName": "xyz",
+      "email": "xyz@gmail.com",
+      "phone": "1234567890",
+      "status": "New",
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "accountId": "0c9eab8e-9afe-46c3-bb7b-093dfe3f4899",
+      "contactId": "8505a3c2-c5ad-46a0-92e4-7e6abe81301d",
+      "opportunityId": "589a377c-e311-44b1-ba6d-febc2ee686f0"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "fe39e481-f93c-4b6f-a7df-50905aa4e8c1",
+      "createdAt": "2026-02-13T09:59:31.157Z",
+      "name": "accolite",
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a",
+      "status": "New"
+    },
+    {
+      "id": "68bd020a-c400-4a48-bb62-ba5c315557bc",
+      "createdAt": "2026-02-13T10:01:22.386Z",
+      "name": "grazziti",
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a",
+      "status": "New"
+    },
+    {
+      "id": "0c9eab8e-9afe-46c3-bb7b-093dfe3f4899",
+      "createdAt": "2026-02-16T10:22:40.173Z",
+      "name": "wipro",
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "status": "New"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "2060e7b4-5107-40a9-9efe-794b1693b274",
+      "createdAt": "2026-02-13T09:59:31.161Z",
+      "accountId": "fe39e481-f93c-4b6f-a7df-50905aa4e8c1",
+      "name": "akash",
+      "email": "akash.rawat@gmail.com",
+      "phone": "1883439134",
+      "title": "sde",
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a"
+    },
+    {
+      "id": "8835548d-7438-4bcc-b72a-5b701c0989b5",
+      "createdAt": "2026-02-13T10:00:38.418Z",
+      "accountId": "fe39e481-f93c-4b6f-a7df-50905aa4e8c1",
+      "name": "ayush",
+      "email": "ayush@gmail.com",
+      "phone": "7454979523",
+      "title": "sde",
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a"
+    },
+    {
+      "id": "f4336713-4cf3-47b0-a3e6-d947a8f333d0",
+      "createdAt": "2026-02-13T10:01:22.392Z",
+      "accountId": "68bd020a-c400-4a48-bb62-ba5c315557bc",
+      "name": "ayush",
+      "email": "ayush@gmail.com",
+      "phone": "6488439439",
+      "title": "sde",
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a"
+    },
+    {
+      "id": "9552d922-4efd-48da-a4d4-9b3ad6ae81d7",
+      "createdAt": "2026-02-13T10:46:10.035Z",
+      "accountId": "68bd020a-c400-4a48-bb62-ba5c315557bc",
+      "name": "piyush",
+      "email": "piyush@gmail.com",
+      "phone": "1234567890",
+      "title": "sde",
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a"
+    },
+    {
+      "id": "8505a3c2-c5ad-46a0-92e4-7e6abe81301d",
+      "createdAt": "2026-02-16T10:22:40.178Z",
+      "accountId": "0c9eab8e-9afe-46c3-bb7b-093dfe3f4899",
+      "name": "xyz",
+      "email": "xyz@gmail.com",
+      "phone": "1234567890",
+      "title": "UI/UX ",
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "revenue": "100",
+      "closedWonRevenue": "100",
+      "updatedAt": "2026-02-16T12:05:26.937Z"
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "1884ecca-7a45-4843-b93d-181c0677bd9a",
+      "createdAt": "2026-02-13T09:59:31.179Z",
+      "accountId": "fe39e481-f93c-4b6f-a7df-50905aa4e8c1",
+      "name": "Deal - accolite",
+      "stage": "Prospect",
+      "value": 0,
+      "closeDate": null,
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a",
+      "description": "react dev"
+    },
+    {
+      "id": "8e7ecdc5-558d-4f16-a027-c7e12b1b9319",
+      "createdAt": "2026-02-13T10:00:38.421Z",
+      "accountId": "fe39e481-f93c-4b6f-a7df-50905aa4e8c1",
+      "name": "Deal - accolite",
+      "stage": "Prospect",
+      "value": 0,
+      "closeDate": null,
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a",
+      "description": "react dev"
+    },
+    {
+      "id": "a524cb62-462a-450e-a2bd-8d4795b6e2fd",
+      "createdAt": "2026-02-13T10:01:22.394Z",
+      "accountId": "68bd020a-c400-4a48-bb62-ba5c315557bc",
+      "name": "Deal - grazziti",
+      "stage": "Prospect",
+      "value": 0,
+      "closeDate": null,
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a",
+      "description": "java dev\n"
+    },
+    {
+      "id": "3c2495b6-73c4-40b3-a7ee-81bd41b0a766",
+      "createdAt": "2026-02-13T10:46:10.055Z",
+      "accountId": "68bd020a-c400-4a48-bb62-ba5c315557bc",
+      "name": "Deal - grazziti",
+      "stage": "Prospect",
+      "value": 0,
+      "closeDate": null,
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a",
+      "description": "java dev"
+    },
+    {
+      "id": "589a377c-e311-44b1-ba6d-febc2ee686f0",
+      "createdAt": "2026-02-16T10:22:40.183Z",
+      "accountId": "0c9eab8e-9afe-46c3-bb7b-093dfe3f4899",
+      "name": "Deal - wipro",
+      "stage": "Prospect",
+      "value": 0,
+      "closeDate": null,
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "description": "abc..."
+    }
+  ],
+  "products": []
+}
