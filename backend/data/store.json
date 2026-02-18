@@ -82,6 +82,19 @@
       "accountId": "0c9eab8e-9afe-46c3-bb7b-093dfe3f4899",
       "contactId": "8505a3c2-c5ad-46a0-92e4-7e6abe81301d",
       "opportunityId": "589a377c-e311-44b1-ba6d-febc2ee686f0"
+    },
+    {
+      "id": "cf2e3255-299e-453e-add7-cb8d79ef0937",
+      "createdAt": "2026-02-18T07:00:54.941Z",
+      "companyName": "infosys",
+      "contactName": "Batman Singh",
+      "email": "batman@grazziti.com",
+      "phone": "9574834589",
+      "status": "New",
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "accountId": "9005e6fe-1ce7-4ec8-a0a2-bbd16b21320a",
+      "contactId": "b3ed820c-cd07-406f-afb3-78778e24d8c2",
+      "opportunityId": "5c5eed76-a01d-4588-b8d1-31b275ed06be"
     }
   ],
   "accounts": [
@@ -103,6 +116,13 @@
       "id": "0c9eab8e-9afe-46c3-bb7b-093dfe3f4899",
       "createdAt": "2026-02-16T10:22:40.173Z",
       "name": "wipro",
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "status": "New"
+    },
+    {
+      "id": "9005e6fe-1ce7-4ec8-a0a2-bbd16b21320a",
+      "createdAt": "2026-02-18T07:00:54.911Z",
+      "name": "infosys",
       "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
       "status": "New"
     }
@@ -163,6 +183,16 @@
       "revenue": "100",
       "closedWonRevenue": "100",
       "updatedAt": "2026-02-16T12:05:26.937Z"
+    },
+    {
+      "id": "b3ed820c-cd07-406f-afb3-78778e24d8c2",
+      "createdAt": "2026-02-18T07:00:54.921Z",
+      "accountId": "9005e6fe-1ce7-4ec8-a0a2-bbd16b21320a",
+      "name": "Batman Singh",
+      "email": "batman@grazziti.com",
+      "phone": "9574834589",
+      "title": "Undefined",
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6"
     }
   ],
   "opportunities": [
@@ -221,6 +251,17 @@
       "closeDate": null,
       "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
       "description": "abc..."
+    },
+    {
+      "id": "5c5eed76-a01d-4588-b8d1-31b275ed06be",
+      "createdAt": "2026-02-18T07:00:54.937Z",
+      "accountId": "9005e6fe-1ce7-4ec8-a0a2-bbd16b21320a",
+      "name": "Deal - infosys",
+      "stage": "Prospect",
+      "value": 0,
+      "closeDate": null,
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "description": ""
     }
   ],
   "products": []

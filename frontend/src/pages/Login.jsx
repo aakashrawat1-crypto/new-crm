@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Grid, Fingerprint, User, Moon, Sun } from 'lucide-react';
 import SplashCursor from '../components/SplashCursor.jsx';
 import CelestialToggle from '../components/CelestialToggle.jsx';
+import SocialLogin from '../components/SocialLogin.jsx';
 import { useTheme } from '../context/ThemeContext';
 
 const Login = () => {
@@ -161,6 +162,15 @@ const Login = () => {
                         >
                             {isRegistering ? 'Sign Up' : 'Sign In'}
                         </button>
+
+                        {!isRegistering && (
+                            <SocialLogin
+                                onSuccess={(user) => {
+                                    navigate('/dashboard');
+                                }}
+                                onError={(msg) => setError(msg)}
+                            />
+                        )}
 
                         <div className="pt-6 text-center">
                             <button

@@ -20,4 +20,34 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { register, login };
+const socialLogin = async (req, res) => {
+    try {
+        const { provider } = req.body;
+        const result = await authService.socialLogin(provider);
+        res.json(result);
+    } catch (error) {
+        res.status(401).json({ message: error.message });
+    }
+};
+
+const firebaseLogin = async (req, res) => {
+    try {
+        const { idToken } = req.body;
+        if (!idToken) return res.status(400).json({ message: 'idToken is required' });
+        const result = await authService.firebaseLogin(idToken);
+        res.json(result);
+    } catch (error) {
+        res.status(401).json({ message: error.message });
+    }
+};
+
+const verify = async (req, res) => {
+    try {
+        const result = await authService.verify(req.user);
+        res.json(result);
+    } catch (error) {
+        res.status(401).json({ message: error.message });
+    }
+};
+
+module.exports = { register, login, socialLogin, firebaseLogin, verify };

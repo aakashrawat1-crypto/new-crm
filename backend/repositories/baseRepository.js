@@ -8,6 +8,7 @@ class BaseRepository {
 
     getAll() {
         const data = readData();
+        if (!data) return [];
         return data[this.collectionName] || [];
     }
 

@@ -187,20 +187,55 @@ const Widget = ({ title, value, icon: Icon, colorClass, trendData, progress }) =
     );
 };
 
-const IntelligenceBubbles = ({ leads = [] }) => {
-    // Process leads into actionable suggestions
+const IntelligenceBubbles = ({ leads = [], opportunities = [] }) => {
+    // Process leads and opportunities into actionable suggestions
     const actions = React.useMemo(() => {
-        return [...leads]
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Newest first
-            .slice(0, 3) // Top 3
-            .map((lead, i) => ({
-                id: lead.id || i,
-                text: lead.name ? `${lead.name}: Follow up with him/her` : "Scan for follow-up opportunities",
-                name: lead.name,
-                type: i === 0 ? 'high' : 'med', // Newest is high priority
-                subtext: lead.status || 'Active'
-            }));
-    }, [leads]);
+        // 1. Get the latest lead (Newest first)
+        const sortedLeads = [...leads].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        const latestLead = sortedLeads[0];
+
+        // 2. Get the oldest active deal (Oldest first, excluding closed)
+        const activeDeals = opportunities.filter(o => o.stage !== 'Closed Won' && o.stage !== 'Closed Lost');
+        const sortedDeals = [...activeDeals].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        const oldestDeal = sortedDeals[0];
+
+        const results = [];
+
+        // Latest Lead at the top (i=0)
+        if (latestLead) {
+            results.push({
+                id: `lead-${latestLead.id}`,
+                text: `${latestLead.contactName || 'New Prospect'}: Incoming signal detected. Primary follow-up required.`,
+                name: latestLead.contactName,
+                type: 'high',
+                subtext: 'Latest Lead'
+            });
+        }
+
+        // Middle item (next latest lead or another deal if needed)
+        if (sortedLeads.length > 1) {
+            const nextLead = sortedLeads[1];
+            results.push({
+                id: `lead-${nextLead.id}`,
+                text: `${nextLead.companyName}: Analyze engagement pattern.`,
+                name: nextLead.contactName,
+                type: 'med',
+                subtext: 'High Interest'
+            });
+        }
+
+        // Oldest Deal at the bottom
+        if (oldestDeal) {
+            results.push({
+                id: `deal-${oldestDeal.id}`,
+                text: `${oldestDeal.name}: Stagnant deal detected. Urgent intervention recommended.`,
+                type: 'low',
+                subtext: 'Oldest Active Deal'
+            });
+        }
+
+        return results;
+    }, [leads, opportunities]);
 
     const finalActions = actions.length > 0 ? actions : [{ id: 'f1', text: "Scan for new opportunities...", type: "low" }];
 
@@ -320,17 +355,20 @@ const Dashboard = () => {
         revenue: 0
     });
     const [leads, setLeads] = useState([]);
+    const [opportunities, setOpportunities] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [statsRes, leadsRes] = await Promise.all([
+                const [statsRes, leadsRes, oppsRes] = await Promise.all([
                     api.get('/dashboard'),
-                    api.get('/leads')
+                    api.get('/leads'),
+                    api.get('/opportunities')
                 ]);
                 setStats(statsRes.data);
                 setLeads(leadsRes.data);
+                setOpportunities(oppsRes.data);
             } catch (error) {
                 console.error('Failed to fetch dashboard data', error);
             } finally {
@@ -399,7 +437,7 @@ const Dashboard = () => {
                     <RevenueTrends trends={stats.revenueTrends} />
                 </div>
                 <div className="lg:col-span-2 bg-[var(--card)] rounded-[40px] border border-[var(--input-border)] shadow-2xl h-auto min-h-[450px] relative overflow-hidden group">
-                    <IntelligenceBubbles leads={leads} />
+                    <IntelligenceBubbles leads={leads} opportunities={opportunities} />
                     {/* Bottom gradient indicator */}
                     <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent"></div>
                 </div>
