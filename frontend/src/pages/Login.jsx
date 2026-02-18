@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import useAuth from '../hooks/useAuth.js';
 import { useNavigate } from 'react-router-dom';
 import { Grid, Fingerprint, User, Moon, Sun } from 'lucide-react';
-import LoginCursor from '../components/LoginCursor.jsx';
 import { useTheme } from '../context/ThemeContext';
 
 const Login = () => {
@@ -38,7 +37,6 @@ const Login = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[var(--background)] transition-colors duration-300">
-            <LoginCursor />
 
             {/* Theme Toggle Button */}
             <button

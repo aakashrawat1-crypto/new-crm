@@ -16,12 +16,14 @@ import ContactsList from './pages/ContactsList';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
+import LoginCursor from './components/LoginCursor.jsx';
 
 function App() {
     return (
         <ErrorBoundary>
             <AuthProvider>
                 <ThemeProvider>
+                    <LoginCursor />
                     <Routes>
                         <Route path="/login" element={<Login />} />
 
