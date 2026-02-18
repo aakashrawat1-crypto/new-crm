@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import useAuth from '../hooks/useAuth.js';
 import { useNavigate } from 'react-router-dom';
 import { Grid, Fingerprint, User, Moon, Sun } from 'lucide-react';
+import SplashCursor from '../components/SplashCursor.jsx';
+import CelestialToggle from '../components/CelestialToggle.jsx';
 import { useTheme } from '../context/ThemeContext';
 
 const Login = () => {
@@ -37,10 +39,12 @@ const Login = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[var(--background)] transition-colors duration-300">
+            <SplashCursor />
+            <CelestialToggle />
 
             {/* Theme Toggle Button */}
             <button
-                onClick={toggleTheme}
+                onClick={() => window.dispatchEvent(new CustomEvent('antigravity:toggleTheme'))}
                 className="absolute top-6 right-6 p-2 rounded-full border border-[var(--input-border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all z-50"
             >
                 {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}

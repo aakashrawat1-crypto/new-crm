@@ -85,7 +85,7 @@ const FloatingNav = () => {
                 {/* Theme Toggle */}
                 <motion.button
                     layout
-                    onClick={toggleTheme}
+                    onClick={() => window.dispatchEvent(new CustomEvent('antigravity:toggleTheme'))}
                     onMouseEnter={() => setHoveredIndex('theme')}
                     onMouseLeave={() => setHoveredIndex(null)}
                     transition={layoutTransition}

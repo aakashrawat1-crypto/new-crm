@@ -116,7 +116,10 @@
       "email": "akash.rawat@gmail.com",
       "phone": "1883439134",
       "title": "sde",
-      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a"
+      "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a",
+      "revenue": "200",
+      "updatedAt": "2026-02-17T10:41:16.183Z",
+      "closedWonRevenue": "200"
     },
     {
       "id": "8835548d-7438-4bcc-b72a-5b701c0989b5",
@@ -168,11 +171,12 @@
       "createdAt": "2026-02-13T09:59:31.179Z",
       "accountId": "fe39e481-f93c-4b6f-a7df-50905aa4e8c1",
       "name": "Deal - accolite",
-      "stage": "Prospect",
-      "value": 0,
-      "closeDate": null,
+      "stage": "Closed Won",
+      "value": 200,
+      "closeDate": "2026-02-17T10:41:16.188Z",
       "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a",
-      "description": "react dev"
+      "description": "react dev",
+      "updatedAt": "2026-02-17T10:41:16.188Z"
     },
     {
       "id": "8e7ecdc5-558d-4f16-a027-c7e12b1b9319",

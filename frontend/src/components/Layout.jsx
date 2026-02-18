@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import FloatingNav from './FloatingNav.jsx';
+import CelestialToggle from './CelestialToggle.jsx';
 
 const Layout = () => {
     return (
@@ -14,6 +15,7 @@ const Layout = () => {
 
             {/* Floating Navigation */}
             <FloatingNav />
+            <CelestialToggle />
         </div>
     );
 };

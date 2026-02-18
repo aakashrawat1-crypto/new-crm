@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../services/api';
 import { Building2, Plus, Search, ExternalLink, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { formatRelativeTime } from '../utils/dateUtils';
 
 const AccountsList = () => {
     const [accounts, setAccounts] = useState([]);
@@ -106,7 +107,7 @@ const AccountsList = () => {
                                             </span>
                                         </td>
                                         <td className="px-8 py-6 text-[var(--text-secondary)] font-medium tabular-nums">
-                                            {new Date(account.createdAt).toLocaleDateString()}
+                                            {formatRelativeTime(account.createdAt)}
                                         </td>
                                         <td className="px-8 py-6 text-right">
                                             <Link

@@ -67,26 +67,14 @@ const ProgressRing = ({ percentage, color }) => {
     );
 };
 
-const RevenueTrends = () => {
+const RevenueTrends = ({ trends }) => {
     const [period, setPeriod] = useState('WEEK');
-    const weekData = [
-        { day: 'MON', value: 45, current: false },
-        { day: 'TUE', value: 65, current: false },
-        { day: 'WED', value: 85, current: false },
-        { day: 'THU', value: 95, current: true },
-        { day: 'FRI', value: 75, current: false },
-        { day: 'SAT', value: 50, current: false },
-    ];
 
-    const monthData = [
-        { day: 'W1', value: 30 },
-        { day: 'W2', value: 80 },
-        { day: 'W3', value: 60 },
-        { day: 'W4', value: 90 },
-    ];
+    const weekData = trends?.weekData || [];
+    const monthData = trends?.monthData || [];
 
     const data = period === 'WEEK' ? weekData : monthData;
-    const maxVal = 100;
+    const maxVal = Math.max(...data.map(d => d.value), 10) * 1.2;
 
     return (
         <div className="bg-[var(--card)] p-8 rounded-[40px] border border-[var(--input-border)] shadow-2xl h-[450px] flex flex-col relative overflow-hidden group">
@@ -136,11 +124,11 @@ const RevenueTrends = () => {
                                 <div className="absolute top-2 left-1/2 -translate-x-1/2 w-1/2 h-4 bg-white/20 rounded-full blur-[2px]"></div>
                             </motion.div>
                             <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[var(--text-primary)] text-[var(--background)] text-[9px] font-black px-2 py-0.5 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity whitespace-nowrap">
-                                ${item.value}k
+                                ${item.value.toLocaleString()}
                             </div>
                         </div>
                         <span className={`text-[10px] font-bold tracking-widest transition-colors ${item.current ? 'text-cyan-500' : 'text-[var(--text-secondary)]'}`}>
-                            {item.day}
+                            {item.label}
                         </span>
                     </div>
                 ))}
@@ -408,7 +396,7 @@ const Dashboard = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
                 <div className="lg:col-span-3">
-                    <RevenueTrends />
+                    <RevenueTrends trends={stats.revenueTrends} />
                 </div>
                 <div className="lg:col-span-2 bg-[var(--card)] rounded-[40px] border border-[var(--input-border)] shadow-2xl h-auto min-h-[450px] relative overflow-hidden group">
                     <IntelligenceBubbles leads={leads} />
