@@ -174,7 +174,7 @@ const Login = () => {
                     {/* Footer Branding */}
                     <div className="mt-12 pt-8 border-t border-[var(--input-border)] flex flex-col items-center">
                         <p className="text-[var(--text-secondary)] text-[10px] tracking-[0.2em] font-medium mb-6 uppercase opacity-40">
-                            Secured by Antigravity Encryption
+                            Secured by Smart CRM Encryption
                         </p>
                         <div className="flex gap-6 opacity-30">
                             <Fingerprint size={20} className="text-[var(--text-primary)]" />

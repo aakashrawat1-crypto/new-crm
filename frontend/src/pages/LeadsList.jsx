@@ -25,8 +25,8 @@ const LeadsList = () => {
     };
 
     const filteredLeads = leads.filter(lead =>
-        lead.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        lead.contactName.toLowerCase().includes(searchTerm.toLowerCase())
+        (lead.organizationName || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (lead.fullName || '').toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -72,7 +72,7 @@ const LeadsList = () => {
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-[var(--background)]/50 border-b border-[var(--input-border)]">
-                                <th className="px-8 py-5 text-[10px] uppercase tracking-[0.15em] font-bold text-[var(--text-secondary)]">Company</th>
+                                <th className="px-8 py-5 text-[10px] uppercase tracking-[0.15em] font-bold text-[var(--text-secondary)]">Organization</th>
                                 <th className="px-8 py-5 text-[10px] uppercase tracking-[0.15em] font-bold text-[var(--text-secondary)]">Contact</th>
                                 <th className="px-8 py-5 text-[10px] uppercase tracking-[0.15em] font-bold text-[var(--text-secondary)]">Email</th>
                                 <th className="px-8 py-5 text-[10px] uppercase tracking-[0.15em] font-bold text-[var(--text-secondary)]">Status</th>
@@ -102,20 +102,23 @@ const LeadsList = () => {
                                                 <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 mr-4">
                                                     <Building2 size={20} />
                                                 </div>
-                                                <span className="font-semibold text-[var(--text-primary)]">{lead.companyName}</span>
+                                                <span className="font-semibold text-[var(--text-primary)]">{lead.organizationName || 'N/A'}</span>
                                             </div>
                                         </td>
                                         <td className="px-8 py-6">
-                                            <div className="flex items-center text-[var(--text-primary)]">
-                                                <User size={16} className="mr-2 text-[var(--text-secondary)]" />
-                                                {lead.contactName}
+                                            <div className="flex flex-col">
+                                                <div className="flex items-center text-[var(--text-primary)] font-medium">
+                                                    <User size={14} className="mr-2 text-[var(--text-secondary)]" />
+                                                    {lead.fullName}
+                                                </div>
+                                                {lead.jobTitle && <span className="text-[11px] text-[var(--text-secondary)] ml-6">{lead.jobTitle}</span>}
                                             </div>
                                         </td>
                                         <td className="px-8 py-6 text-[var(--text-secondary)]">{lead.email}</td>
                                         <td className="px-8 py-6">
                                             <span className={`inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${lead.status === 'New' ? 'bg-blue-500/10 text-blue-500' :
-                                                    lead.status === 'Converted' ? 'bg-emerald-500/10 text-emerald-500' :
-                                                        'bg-gray-500/10 text-[var(--text-primary)]'
+                                                lead.status === 'Converted' ? 'bg-emerald-500/10 text-emerald-500' :
+                                                    'bg-gray-500/10 text-[var(--text-primary)]'
                                                 }`}>
                                                 <span className="w-1.5 h-1.5 rounded-full bg-current mr-2 animate-pulse"></span>
                                                 {lead.status}
@@ -135,7 +138,7 @@ const LeadsList = () => {
             {/* Footer Insights */}
             <div className="pt-10 text-center opacity-30">
                 <p className="text-[10px] tracking-[0.3em] font-medium uppercase text-[var(--text-primary)]">
-                    Antigravity Data Intelligence System
+                    Smart CRM System
                 </p>
             </div>
         </motion.div>

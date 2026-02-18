@@ -102,6 +102,7 @@ const AccountDetail = () => {
                             <thead className="bg-[var(--background)]/50 text-[var(--text-secondary)] text-[9px] uppercase font-bold tracking-[0.2em] border-b border-[var(--input-border)]">
                                 <tr>
                                     <th className="px-6 py-4">Stakeholder</th>
+                                    <th className="px-6 py-4">Role</th>
                                     <th className="px-6 py-4 text-center">Status</th>
                                     <th className="px-6 py-4 text-right">Registered</th>
                                 </tr>
@@ -111,12 +112,15 @@ const AccountDetail = () => {
                                     <tr key={lead.id} className="hover:bg-white/5 transition-colors group">
                                         <td className="px-6 py-5 focus-within:ring-0">
                                             <Link
-                                                to={`/contacts?highlight=${encodeURIComponent(lead.contactName)}`}
+                                                to={`/leads?highlight=${encodeURIComponent(lead.fullName)}`}
                                                 className="block hover:translate-x-1 transition-transform"
                                             >
-                                                <div className="font-bold text-[var(--text-primary)] group-hover:text-indigo-400 transition-colors">{lead.contactName}</div>
+                                                <div className="font-bold text-[var(--text-primary)] group-hover:text-indigo-400 transition-colors">{lead.fullName}</div>
                                                 <div className="text-[10px] text-[var(--text-secondary)] opacity-60 font-medium tracking-tight truncate max-w-[150px]">{lead.email}</div>
                                             </Link>
+                                        </td>
+                                        <td className="px-6 py-5">
+                                            <div className="text-[11px] text-[var(--text-secondary)] font-medium">{lead.jobTitle || 'N/A'}</div>
                                         </td>
                                         <td className="px-6 py-5 text-center">
                                             <span className={`px-2 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wide border ${lead.status === 'Converted' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-blue-500/10 text-blue-500 border-blue-500/20'

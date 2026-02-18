@@ -1,15 +1,15 @@
 const productRepository = require('../repositories/productRepository');
 
 class ProductService {
-    createProduct(data, user) {
-        return productRepository.create({
+    async createProduct(data, user) {
+        return await productRepository.create({
             ...data,
             createdBy: user.id
         });
     }
 
-    getProducts() {
-        return productRepository.getAll();
+    async getProducts() {
+        return await productRepository.getAll();
     }
 }
 

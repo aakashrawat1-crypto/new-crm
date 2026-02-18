@@ -1,23 +1,31 @@
 const accountService = require('../services/accountService');
 
-const createAccount = (req, res) => {
+const createAccount = async (req, res) => {
     try {
-        const account = accountService.createAccount(req.body, req.user);
+        const account = await accountService.createAccount(req.body, req.user);
         res.status(201).json(account);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
 
-const getAccounts = (req, res) => {
-    const accounts = accountService.getAllAccounts();
-    res.json(accounts);
+const getAccounts = async (req, res) => {
+    try {
+        const accounts = await accountService.getAllAccounts();
+        res.json(accounts);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
-const getAccountDetails = (req, res) => {
-    const details = accountService.getAccountDetails(req.params.id);
-    if (!details) return res.status(404).json({ message: 'Account not found' });
-    res.json(details);
+const getAccountDetails = async (req, res) => {
+    try {
+        const details = await accountService.getAccountDetails(req.params.id);
+        if (!details) return res.status(404).json({ message: 'Account not found' });
+        res.json(details);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
 module.exports = { createAccount, getAccounts, getAccountDetails };

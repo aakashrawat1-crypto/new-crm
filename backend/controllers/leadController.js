@@ -9,22 +9,34 @@ const createLead = async (req, res) => {
     }
 };
 
-const getLeads = (req, res) => {
-    const leads = leadService.getAllLeads();
-    res.json(leads);
+const getLeads = async (req, res) => {
+    try {
+        const leads = await leadService.getAllLeads();
+        res.json(leads);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
-const getLead = (req, res) => {
-    const lead = leadService.getLeadById(req.params.id);
-    if (!lead) return res.status(404).json({ message: 'Lead not found' });
-    res.json(lead);
+const getLead = async (req, res) => {
+    try {
+        const lead = await leadService.getLeadById(req.params.id);
+        if (!lead) return res.status(404).json({ message: 'Lead not found' });
+        res.json(lead);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
-const updateStatus = (req, res) => {
-    const { status } = req.body;
-    const lead = leadService.updateLeadStatus(req.params.id, status);
-    if (!lead) return res.status(404).json({ message: 'Lead not found' });
-    res.json(lead);
+const updateStatus = async (req, res) => {
+    try {
+        const { status } = req.body;
+        const lead = await leadService.updateLeadStatus(req.params.id, status);
+        if (!lead) return res.status(404).json({ message: 'Lead not found' });
+        res.json(lead);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
 module.exports = { createLead, getLeads, getLead, updateStatus };

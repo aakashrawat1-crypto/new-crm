@@ -4,13 +4,13 @@ const { generateToken } = require('../utils/jwtHelper');
 
 class AuthService {
     async register(name, email, password, role = 'SALES_REP') {
-        const existingUser = userRepository.findByEmail(email);
+        const existingUser = await userRepository.findByEmail(email);
         if (existingUser) {
             throw new Error('User already exists');
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = userRepository.create({
+        const newUser = await userRepository.create({
             name,
             email,
             password: hashedPassword,
@@ -22,7 +22,7 @@ class AuthService {
     }
 
     async login(email, password) {
-        const user = userRepository.findByEmail(email);
+        const user = await userRepository.findByEmail(email);
         if (!user) {
             throw new Error('Invalid credentials');
         }

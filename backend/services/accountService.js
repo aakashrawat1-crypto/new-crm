@@ -1,39 +1,52 @@
 const accountRepository = require('../repositories/accountRepository');
 const contactRepository = require('../repositories/contactRepository');
 const opportunityRepository = require('../repositories/opportunityRepository');
-
 const leadRepository = require('../repositories/leadRepository');
 
 class AccountService {
-    getAllAccounts() {
-        return accountRepository.getAll();
+    async getAllAccounts() {
+        return await accountRepository.getAll();
     }
 
-    getAccountById(id) {
-        return accountRepository.getById(id);
+    async getAccountById(id) {
+        return await accountRepository.getById(id);
     }
 
-    createAccount(accountData, user) {
-        // Enforce unique name (case-insensitive)
-        const existing = accountRepository.findByName(accountData.name);
+    async getOrCreateAccount(name, user) {
+        if (!name) return null;
+
+        let account = await accountRepository.findByName(name);
+        if (!account) {
+            account = await accountRepository.create({
+                name,
+                ownerId: user?.id || 'system',
+                industry: 'Other',
+                website: ''
+            });
+        }
+        return account;
+    }
+
+    async createAccount(accountData, user) {
+        const existing = await accountRepository.findByName(accountData.name);
         if (existing) {
             throw new Error('Account with this name already exists');
         }
 
-        return accountRepository.create({
+        return await accountRepository.create({
             ...accountData,
-            ownerId: user.id,
-            createdAt: new Date()
+            ownerId: user?.id || 'system'
         });
     }
 
-    getAccountDetails(id) {
-        const account = accountRepository.getById(id);
+    async getAccountDetails(id) {
+        const account = await accountRepository.getById(id);
         if (!account) return null;
 
-        const contacts = contactRepository.findByAccountId(id);
-        const opportunities = opportunityRepository.findByAccountId(id);
-        const leads = leadRepository.find(l => l.accountId === id);
+        // Note: Repository methods like findByAccountId need to be implemented/fixed for SQL too
+        const contacts = await contactRepository.find('accountId = ?', [id]);
+        const opportunities = await opportunityRepository.find('accountId = ?', [id]);
+        const leads = await leadRepository.find('accountId = ?', [id]);
 
         return { ...account, contacts, opportunities, leads };
     }

@@ -5,9 +5,9 @@ class AccountRepository extends BaseRepository {
         super('accounts');
     }
 
-    findByName(name) {
+    async findByName(name) {
         if (!name) return null;
-        return this.findOne(account => account.name.toLowerCase() === name.toLowerCase());
+        return await this.findOne('LOWER(name) = LOWER(?)', [name]);
     }
 }
 

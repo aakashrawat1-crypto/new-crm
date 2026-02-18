@@ -138,10 +138,10 @@ const OpportunityDetail = () => {
                     </Link>
                     <div>
                         <div className="flex items-center gap-3">
-                            <h1 className="text-3xl font-bold text-[var(--text-primary)] tracking-tight">{opportunity.name}</h1>
+                            <h1 className="text-3xl font-bold text-[var(--text-primary)] tracking-tight">{opportunity.dealDetail || 'Untitled Opportunity'}</h1>
                             <span className={`px-3 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-widest border ${opportunity.stage === 'Closed Won' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/10' :
-                                    opportunity.stage === 'Closed Lost' ? 'bg-rose-500/10 text-rose-500 border-rose-500/10' :
-                                        'bg-indigo-500/10 text-indigo-500 border-indigo-500/10'
+                                opportunity.stage === 'Closed Lost' ? 'bg-rose-500/10 text-rose-500 border-rose-500/10' :
+                                    'bg-indigo-500/10 text-indigo-500 border-indigo-500/10'
                                 }`}>
                                 {opportunity.stage} Status Active
                             </span>
@@ -224,7 +224,7 @@ const OpportunityDetail = () => {
                                 <div className="space-y-4">
                                     <label className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-secondary)] ml-1">Engagement Description</label>
                                     <div className="p-6 bg-[var(--background)]/30 border border-[var(--input-border)] rounded-3xl text-[var(--text-primary)] leading-relaxed italic opacity-80 shadow-inner">
-                                        {opportunity.description || 'System generated: Initial outreach and service identification in progress.'}
+                                        {opportunity.dealDetail || 'System generated: Initial outreach and service identification in progress.'}
                                     </div>
                                 </div>
                             </div>
@@ -339,7 +339,7 @@ const OpportunityDetail = () => {
             {/* System Intelligence Tag */}
             <div className="pt-10 flex flex-col items-center opacity-10 select-none pointer-events-none">
                 <span className="text-[8px] uppercase font-bold tracking-[1em] text-[var(--text-primary)]">
-                    Antigravity Business Information Layer
+                    Smart CRM Business Information Layer
                 </span>
             </div>
         </motion.div>

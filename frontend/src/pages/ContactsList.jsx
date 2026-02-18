@@ -342,7 +342,7 @@ const ContactsList = () => {
             {/* Footer */}
             <footer className="mt-16 text-center opacity-30 select-none">
                 <span className="text-[9px] tracking-[0.5em] font-bold uppercase text-[var(--text-primary)]">
-                    Antigravity Stakeholder Protocol
+                    Smart CRM
                 </span>
             </footer>
         </motion.div>

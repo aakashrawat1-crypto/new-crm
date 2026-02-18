@@ -1,23 +1,23 @@
 const opportunityRepository = require('../repositories/opportunityRepository');
 
 class OpportunityService {
-    createOpportunity(data, user) {
-        return opportunityRepository.create({
+    async createOpportunity(data, user) {
+        return await opportunityRepository.create({
             ...data,
             ownerId: user.id
         });
     }
 
-    getOpportunities() {
-        return opportunityRepository.getAll();
+    async getOpportunities() {
+        return await opportunityRepository.getAll();
     }
 
-    getOpportunity(id) {
-        return opportunityRepository.getById(id);
+    async getOpportunity(id) {
+        return await opportunityRepository.getById(id);
     }
 
-    updateOpportunity(id, updateData) {
-        return opportunityRepository.update(id, {
+    async updateOpportunity(id, updateData) {
+        return await opportunityRepository.update(id, {
             ...updateData,
             updatedAt: new Date()
         });

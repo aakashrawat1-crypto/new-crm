@@ -1,76 +1,69 @@
 const leadRepository = require('../repositories/leadRepository');
-const accountRepository = require('../repositories/accountRepository');
-const contactRepository = require('../repositories/contactRepository');
 const opportunityRepository = require('../repositories/opportunityRepository');
+const accountService = require('./accountService');
 
 class LeadService {
     async createLead(leadData, user) {
+        const {
+            fullName,
+            organizationName,
+            jobTitle,
+            email,
+            mobile,
+            officePhone,
+            leadSource,
+            description
+        } = leadData;
+
         try {
-            const { companyName, contactName, email, phone, title, description } = leadData;
+            // 0. Get or Create Account based on Organization Name
+            console.log('LeadService: Getting or creating account for:', organizationName);
+            const account = await accountService.getOrCreateAccount(organizationName, user);
+            const accountId = account ? account.id : null;
+            console.log('LeadService: Account obtained:', accountId);
 
-            // 1. Check if Account exists
-            let account = accountRepository.findByName(companyName);
+            // 1. Create Lead
+            console.log('LeadService: Creating lead with accountId:', accountId);
+            const lead = await leadRepository.create({
+                fullName: fullName || 'Unknown Lead',
+                jobTitle: jobTitle || '',
+                organizationName: organizationName || '',
+                email: email || '',
+                mobile: mobile || '',
+                officePhone: officePhone || '',
+                leadSource: leadSource || 'Other',
+                status: 'New',
+                ownerId: user?.id || 'system',
+                accountId: accountId
+            });
+            console.log('LeadService: Lead created:', lead.id, 'with accountId:', lead.accountId);
 
-            if (!account) {
-                // Create new Account
-                account = accountRepository.create({
-                    name: companyName,
-                    ownerId: user?.id || 'system',
-                    status: 'New'
-                });
-            }
-
-            // 2. Create Contact
-            const contact = contactRepository.create({
-                accountId: account.id,
-                name: contactName,
-                email,
-                phone,
-                title,
+            // 2. Create Opportunity linked to the Lead AND Account
+            const opportunity = await opportunityRepository.create({
+                leadId: lead.id,
+                accountId: accountId,
+                dealDetail: `Deal - ${organizationName || fullName}`,
+                stage: 'Discovery',
                 ownerId: user?.id || 'system'
             });
 
-            // 3. Create Opportunity
-            const opportunity = opportunityRepository.create({
-                accountId: account.id,
-                name: `Deal - ${companyName}`,
-                stage: 'Prospect',
-                value: 0,
-                closeDate: null,
-                ownerId: user?.id || 'system',
-                description
-            });
-
-            // 4. Create Lead
-            const lead = leadRepository.create({
-                companyName,
-                contactName,
-                email,
-                phone,
-                status: 'New',
-                ownerId: user?.id || 'system',
-                accountId: account.id,
-                contactId: contact.id,
-                opportunityId: opportunity.id
-            });
-
-            return { lead, account, contact, opportunity };
+            return { lead, opportunity, account };
         } catch (error) {
             console.error('CRITICAL ERROR in createLead:', error);
             throw error;
         }
     }
 
-    getAllLeads() {
-        return leadRepository.getAll();
+    async getAllLeads() {
+        return await leadRepository.getAll();
     }
 
-    getLeadById(id) {
-        return leadRepository.getById(id);
+    async getLeadById(id) {
+        return await leadRepository.getById(id);
     }
 
-    updateLeadStatus(id, status) {
-        return leadRepository.update(id, { status });
+    async updateLeadStatus(id, status) {
+        return await leadRepository.update(id, { status });
     }
 }
 

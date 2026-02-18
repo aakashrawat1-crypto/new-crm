@@ -419,7 +419,7 @@ const Dashboard = () => {
 
             <footer className="mt-16 text-center">
                 <p className="text-[10px] text-[var(--text-secondary)] tracking-[0.2em] font-medium uppercase opacity-30">
-                    Antigravity Business Intelligence Unit
+                    Smart CRM
                 </p>
             </footer>
         </div>

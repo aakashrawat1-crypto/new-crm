@@ -5,8 +5,8 @@ class UserRepository extends BaseRepository {
         super('users');
     }
 
-    findByEmail(email) {
-        return this.findOne(user => user.email === email);
+    async findByEmail(email) {
+        return await this.findOne('email = ?', [email]);
     }
 }
 

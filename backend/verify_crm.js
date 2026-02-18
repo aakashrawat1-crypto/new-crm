@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'http://localhost:5001/api';
 
 async function run() {
     try {
@@ -34,36 +34,46 @@ async function run() {
 
         console.log('2. Creating First Lead (Acme Corp)...');
         const lead1Res = await axios.post(`${API_URL}/leads`, {
-            companyName: 'Acme Corp',
-            contactName: 'Alice Smith',
+            organizationName: 'Acme Corp',
+            fullName: 'Alice Smith',
             email: 'alice@acme.com',
-            phone: '1234567890'
+            mobile: '1234567890'
         }, authHeaders);
-        const lead1 = lead1Res.data.lead;
-        const account1 = lead1Res.data.account;
-        console.log(`   Lead created: ${lead1.id}`);
-        console.log(`   Account created/linked: ${account1.id} (${account1.name})`);
+        const account1Id = lead1Res.data.lead.accountId;
+        console.log(`   Lead 1 created. Account ID: ${account1Id}`);
 
-        console.log('3. Creating Second Lead (Acme Corp) - Should reuse Account...');
+        console.log('3. Creating Second Lead for Same Organization (Acme Corp)...');
         const lead2Res = await axios.post(`${API_URL}/leads`, {
-            companyName: 'Acme Corp',
-            contactName: 'Bob Jones',
+            organizationName: 'Acme Corp',
+            fullName: 'Bob Jones',
             email: 'bob@acme.com',
-            phone: '0987654321'
+            mobile: '0987654321'
         }, authHeaders);
-        const lead2 = lead2Res.data.lead;
-        const account2 = lead2Res.data.account;
-        console.log(`   Lead created: ${lead2.id}`);
-        console.log(`   Account linked: ${account2.id}`);
+        const account2Id = lead2Res.data.lead.accountId;
+        console.log(`   Lead 2 created. Account ID: ${account2Id}`);
 
-        if (account1.id === account2.id) {
-            console.log('SUCCESS: Account ID matches! Logic working.');
+        if (account1Id && account1Id === account2Id) {
+            console.log('   SUCCESS: Account IDs match! Logic working.');
         } else {
-            console.error('FAILURE: Account IDs do not match.');
+            console.error('   FAILURE: Account IDs do not match or are missing.');
+            console.log(`   ID 1: ${account1Id}, ID 2: ${account2Id}`);
             process.exit(1);
         }
 
-        console.log('4. Verifying Dashboard Stats...');
+        console.log('4. Verifying Account Details (Hierarchy)...');
+        const accountDetailsRes = await axios.get(`${API_URL}/accounts/${account1Id}`, authHeaders);
+        const details = accountDetailsRes.data;
+        console.log(`   Account: ${details.name}`);
+        console.log(`   Leads found in Account: ${details.leads?.length || 0}`);
+
+        if (details.leads && details.leads.some(l => l.fullName === 'Alice Smith')) {
+            console.log('   SUCCESS: Lead "Alice Smith" found in Account details!');
+        } else {
+            console.error('   FAILURE: Lead not found in Account details.');
+            process.exit(1);
+        }
+
+        console.log('5. Verifying Dashboard Stats...');
         const statsRes = await axios.get(`${API_URL}/dashboard`, authHeaders);
         console.log('   Stats:', statsRes.data);
 
@@ -72,5 +82,4 @@ async function run() {
         process.exit(1);
     }
 }
-
 run();

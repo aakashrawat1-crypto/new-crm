@@ -1,19 +1,19 @@
 const contactRepository = require('../repositories/contactRepository');
 
 class ContactService {
-    createContact(data, user) {
-        return contactRepository.create({
+    async createContact(data, user) {
+        return await contactRepository.create({
             ...data,
             ownerId: user.id
         });
     }
 
-    getContacts() {
-        return contactRepository.getAll();
+    async getContacts() {
+        return await contactRepository.getAll();
     }
 
-    updateContact(id, data) {
-        return contactRepository.update(id, data);
+    async updateContact(id, data) {
+        return await contactRepository.update(id, data);
     }
 }
 

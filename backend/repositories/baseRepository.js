@@ -1,66 +1,74 @@
-const { readData, writeData } = require('../utils/fileHelper');
+const { getDb } = require('../utils/db');
 const { v4: uuidv4 } = require('uuid');
 
 class BaseRepository {
-    constructor(collectionName) {
-        this.collectionName = collectionName;
+    constructor(tableName) {
+        this.tableName = tableName;
     }
 
-    getAll() {
-        const data = readData();
-        return data[this.collectionName] || [];
+    async getAll() {
+        const db = await getDb();
+        return await db.all(`SELECT * FROM ${this.tableName}`);
     }
 
-    getById(id) {
-        const items = this.getAll();
-        return items.find(item => item.id === id);
+    async getById(id) {
+        const db = await getDb();
+        return await db.get(`SELECT * FROM ${this.tableName} WHERE id = ?`, [id]);
     }
 
-    create(item) {
-        const data = readData();
-        const newItem = { id: uuidv4(), createdAt: new Date(), ...item };
-        if (!data[this.collectionName]) {
-            data[this.collectionName] = [];
-        }
-        data[this.collectionName].push(newItem);
-        writeData(data);
+    async create(item) {
+        const db = await getDb();
+        const id = uuidv4();
+        const createdAt = new Date().toISOString();
+        const newItem = { id, createdAt, ...item };
+
+        const keys = Object.keys(newItem);
+        const placeholders = keys.map(() => '?').join(', ');
+        const values = Object.values(newItem);
+
+        await db.run(
+            `INSERT INTO ${this.tableName} (${keys.join(', ')}) VALUES (${placeholders})`,
+            values
+        );
+
         return newItem;
     }
 
-    update(id, updates) {
-        const data = readData();
-        const items = data[this.collectionName] || [];
-        const index = items.findIndex(item => item.id === id);
-        if (index === -1) return null;
+    async update(id, updates) {
+        const db = await getDb();
+        const keys = Object.keys(updates);
+        if (keys.length === 0) return await this.getById(id);
 
-        items[index] = { ...items[index], ...updates, updatedAt: new Date() };
-        data[this.collectionName] = items;
-        writeData(data);
-        return items[index];
+        const setClause = keys.map(key => `${key} = ?`).join(', ');
+        const values = [...Object.values(updates), id];
+
+        await db.run(
+            `UPDATE ${this.tableName} SET ${setClause} WHERE id = ?`,
+            values
+        );
+
+        return await this.getById(id);
     }
 
-    delete(id) {
-        const data = readData();
-        const items = data[this.collectionName] || [];
-        const filtered = items.filter(item => item.id !== id);
-
-        if (filtered.length === items.length) return false;
-
-        data[this.collectionName] = filtered;
-        writeData(data);
-        return true;
+    async delete(id) {
+        const db = await getDb();
+        const result = await db.run(`DELETE FROM ${this.tableName} WHERE id = ?`, [id]);
+        return result.changes > 0;
     }
 
-    // Helper for finding one item by custom predicate
-    findOne(predicate) {
-        const items = this.getAll();
-        return items.find(predicate);
+    async findOne(predicate_or_condition, params = []) {
+        const db = await getDb();
+        // For SQLite, we prefer SQL conditions. If it's a string, use it as WHERE clause.
+        if (typeof predicate_or_condition === 'string') {
+            return await db.get(`SELECT * FROM ${this.tableName} WHERE ${predicate_or_condition}`, params);
+        }
+        // Fallback or handle differently if needed, but for now we expect SQL strings
+        throw new Error('findOne expects a SQL condition string');
     }
 
-    // Helper for finding multiple items
-    find(predicate) {
-        const items = this.getAll();
-        return items.filter(predicate);
+    async find(condition, params = []) {
+        const db = await getDb();
+        return await db.all(`SELECT * FROM ${this.tableName} WHERE ${condition}`, params);
     }
 }
 

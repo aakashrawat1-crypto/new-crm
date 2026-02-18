@@ -33,6 +33,32 @@ app.get('/', (req, res) => {
     res.send('Smart CRM Backend is running');
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+}).on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+        console.error(`\n[ERROR] Port ${PORT} is already in use.`);
+        console.error(`[TIP] Run 'node utils/kill_port.js' to clear the port, or use 'npm start'.\n`);
+        process.exit(1);
+    } else {
+        throw err;
+    }
 });
+
+// Graceful shutdown
+const gracefulShutdown = async () => {
+    console.log('\nShutting down gracefully...');
+    server.close(() => {
+        console.log('Server closed.');
+        process.exit(0);
+    });
+
+    // Force close after 5 seconds
+    setTimeout(() => {
+        console.error('Could not close connections in time, forcefully shutting down');
+        process.exit(1);
+    }, 5000);
+};
+
+process.on('SIGINT', gracefulShutdown);
+process.on('SIGTERM', gracefulShutdown);

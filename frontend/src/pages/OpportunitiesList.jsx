@@ -34,7 +34,7 @@ const OpportunitiesList = () => {
     };
 
     const filteredOpps = opportunities.filter(opp =>
-        opp.name.toLowerCase().includes(searchTerm.toLowerCase())
+        (opp.dealDetail || '').toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -102,7 +102,7 @@ const OpportunitiesList = () => {
                                 filteredOpps.map(opp => (
                                     <tr key={opp.id} className="hover:bg-white/5 transition-all group">
                                         <td className="px-8 py-7">
-                                            <div className="font-bold text-[var(--text-primary)] text-lg tracking-tight mb-1">{opp.name}</div>
+                                            <div className="font-bold text-[var(--text-primary)] text-lg tracking-tight mb-1">{opp.dealDetail || 'Untitled Deal'}</div>
                                             <div className="text-[10px] text-[var(--text-secondary)] font-bold tracking-widest flex items-center">
                                                 ID: {opp.id.slice(-6).toUpperCase()} • SALES_UNIT_2024
                                             </div>
@@ -141,7 +141,7 @@ const OpportunitiesList = () => {
             {opportunities.length === 0 && !loading && (
                 <div className="p-16 text-center border-2 border-dashed border-[var(--input-border)] rounded-[40px] opacity-40">
                     <p className="text-sm font-medium text-[var(--text-secondary)]">
-                        Opportunity pipeline is empty. Leads are automatically converted to deals by the Antigravity system.
+                        Opportunity pipeline is empty. Leads are automatically converted to deals by the Smart CRM system.
                     </p>
                 </div>
             )}
