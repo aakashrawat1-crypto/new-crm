@@ -1,6 +1,6 @@
 const { execSync } = require('child_process');
 
-const PORT = 5001;
+const PORT = 5002;
 
 function killPort() {
     try {
