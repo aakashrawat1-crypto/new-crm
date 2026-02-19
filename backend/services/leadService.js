@@ -1,5 +1,6 @@
 const leadRepository = require('../repositories/leadRepository');
 const opportunityRepository = require('../repositories/opportunityRepository');
+const contactRepository = require('../repositories/contactRepository');
 const accountService = require('./accountService');
 
 class LeadService {
@@ -47,7 +48,20 @@ class LeadService {
                 ownerId: user?.id || 'system'
             });
 
-            return { lead, opportunity, account };
+            // 3. Auto-create a Contact entry from the Lead data
+            const contact = await contactRepository.create({
+                name: fullName || 'Unknown Lead',
+                email: email || '',
+                phone: mobile || officePhone || '',
+                title: jobTitle || 'Prospect',
+                status: 'New',
+                leadId: lead.id,
+                ownerId: user?.id || 'system',
+                accountId: accountId
+            });
+            console.log('LeadService: Contact auto-created:', contact.id, 'linked to lead:', lead.id);
+
+            return { lead, opportunity, account, contact };
         } catch (error) {
             console.error('CRITICAL ERROR in createLead:', error);
             throw error;

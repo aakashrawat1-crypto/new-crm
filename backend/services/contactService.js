@@ -11,7 +11,19 @@ class ContactService {
     }
 
     async getContacts() {
-        return await contactRepository.getAll();
+        // Fetch lead data directly from the leads table
+        const leads = await leadRepository.getAll();
+        console.log(`[ContactService] Returning ${leads.length} leads as contacts`);
+        return leads.map(l => ({
+            id: l.id,
+            name: l.fullName || 'Unknown',
+            email: l.email || '',
+            phone: l.mobile || l.officePhone || '',
+            title: l.jobTitle || 'Prospect',
+            status: l.status || 'New',
+            leadId: l.id,
+            createdAt: l.createdAt
+        }));
     }
 
     async updateContact(id, data) {

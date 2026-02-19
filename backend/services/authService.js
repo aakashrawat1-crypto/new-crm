@@ -38,7 +38,7 @@ class AuthService {
 
     async socialLogin(provider) {
         // For demo purposes, we log in as the primary admin/account
-        const users = userRepository.getAll();
+        const users = await userRepository.getAll();
         const user = users[0];
 
         if (!user) {
@@ -81,9 +81,9 @@ class AuthService {
         if (!email) throw new Error('No email in Firebase token');
 
         // Find existing user or create one
-        let user = userRepository.findByEmail(email);
+        let user = await userRepository.findByEmail(email);
         if (!user) {
-            user = userRepository.create({
+            user = await userRepository.create({
                 name: name || email.split('@')[0],
                 email,
                 password: '', // No password for OAuth users
@@ -100,7 +100,7 @@ class AuthService {
         if (!tokenData || !tokenData.id) {
             throw new Error('Invalid token');
         }
-        const user = userRepository.getById(tokenData.id);
+        const user = await userRepository.getById(tokenData.id);
         if (!user) {
             throw new Error('User not found');
         }

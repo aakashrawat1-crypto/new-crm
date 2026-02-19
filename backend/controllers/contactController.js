@@ -12,6 +12,7 @@ const createContact = async (req, res) => {
 const getContacts = async (req, res) => {
     try {
         const contacts = await contactService.getContacts();
+        console.log(`[BACKEND] Returning ${contacts.length} unified contacts/leads`);
         res.json(contacts);
     } catch (error) {
         res.status(500).json({ message: error.message });

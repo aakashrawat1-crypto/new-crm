@@ -4,6 +4,12 @@ import api from '../services/api';
 import { User, Mail, Phone, Shield, Search, Star, X, DollarSign, TrendingUp, TrendingDown, Save } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const MoreVertical = ({ size, className }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <circle cx="12" cy="12" r="1" /><circle cx="12" cy="5" r="1" /><circle cx="12" cy="19" r="1" />
+    </svg>
+);
+
 const ContactDetailModal = ({ contact, onClose, onUpdate }) => {
     const [formData, setFormData] = useState({ ...contact });
     const [saving, setSaving] = useState(false);
@@ -178,6 +184,7 @@ const ContactsList = () => {
     const fetchContacts = async () => {
         try {
             const response = await api.get('/contacts');
+            console.log('Contacts API Response:', response.data);
             setContacts(response.data);
         } catch (error) {
             console.error('Failed to fetch contacts', error);
@@ -253,6 +260,7 @@ const ContactsList = () => {
                                 <th className="px-8 py-5 text-[10px] uppercase tracking-[0.25em] font-bold text-[var(--text-secondary)]">Identity</th>
                                 <th className="px-8 py-5 text-[10px] uppercase tracking-[0.25em] font-bold text-[var(--text-secondary)]">Communication</th>
                                 <th className="px-8 py-5 text-[10px] uppercase tracking-[0.25em] font-bold text-[var(--text-secondary)]">Position</th>
+                                <th className="px-8 py-5 text-[10px] uppercase tracking-[0.25em] font-bold text-[var(--text-secondary)]">Status</th>
                                 <th className="px-8 py-5 text-[10px] uppercase tracking-[0.25em] font-bold text-[var(--text-secondary)] text-right">Access</th>
                             </tr>
                         </thead>
@@ -260,12 +268,12 @@ const ContactsList = () => {
                             {loading ? (
                                 Array.from({ length: 3 }).map((_, i) => (
                                     <tr key={i} className="animate-pulse">
-                                        <td colSpan="4" className="px-8 py-8"><div className="h-4 bg-[var(--input-border)] rounded w-1/2 opacity-10"></div></td>
+                                        <td colSpan="5" className="px-8 py-8"><div className="h-4 bg-[var(--input-border)] rounded w-1/2 opacity-10"></div></td>
                                     </tr>
                                 ))
                             ) : filteredContacts.length === 0 ? (
                                 <tr>
-                                    <td colSpan="4" className="px-8 py-20 text-center text-[var(--text-secondary)]">No contacts registered.</td>
+                                    <td colSpan="5" className="px-8 py-20 text-center text-[var(--text-secondary)]">No contacts registered.</td>
                                 </tr>
                             ) : (
                                 filteredContacts.map(contact => {
@@ -292,7 +300,11 @@ const ContactsList = () => {
                                                     <div>
                                                         <div className="font-bold text-[var(--text-primary)] text-lg leading-tight">{contact.name}</div>
                                                         <div className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)] mt-1 flex items-center">
-                                                            <Shield size={10} className="mr-1 text-indigo-500" /> Stakeholder
+                                                            {contact.leadId ? (
+                                                                <><Star size={10} className="mr-1 text-amber-500" /> Lead Prospect</>
+                                                            ) : (
+                                                                <><Shield size={10} className="mr-1 text-indigo-500" /> Stakeholder</>
+                                                            )}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -316,7 +328,17 @@ const ContactsList = () => {
                                             </td>
                                             <td className="px-8 py-6">
                                                 <div className="inline-flex items-center px-4 py-1 bg-zinc-500/10 text-zinc-400 rounded-lg text-[11px] font-bold uppercase tracking-widest border border-zinc-500/10 shadow-inner">
-                                                    {contact.title || 'Executive'}
+                                                    {contact.title}
+                                                </div>
+                                            </td>
+                                            <td className="px-8 py-6">
+                                                <div className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border ${contact.status === 'Active' || contact.status === 'Verified' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' :
+                                                        contact.status === 'Converted' || contact.status === 'Closed Won' ? 'bg-indigo-500/10 text-indigo-500 border-indigo-500/20' :
+                                                            contact.status === 'New' ? 'bg-cyan-500/10 text-cyan-500 border-cyan-500/20' :
+                                                                contact.status === 'Closed Lost' ? 'bg-rose-500/10 text-rose-500 border-rose-500/20' :
+                                                                    'bg-amber-500/10 text-amber-500 border-amber-500/20'
+                                                    }`}>
+                                                    {contact.status || 'Active'}
                                                 </div>
                                             </td>
                                             <td className="px-8 py-6 text-right">
@@ -348,11 +370,5 @@ const ContactsList = () => {
         </motion.div>
     );
 };
-
-const MoreVertical = ({ size, className }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-        <circle cx="12" cy="12" r="1" /><circle cx="12" cy="5" r="1" /><circle cx="12" cy="19" r="1" />
-    </svg>
-);
 
 export default ContactsList;

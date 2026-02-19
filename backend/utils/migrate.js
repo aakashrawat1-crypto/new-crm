@@ -105,8 +105,11 @@ async function migrate() {
             email TEXT,
             phone TEXT,
             title TEXT,
+            status TEXT DEFAULT 'Active',
+            leadId TEXT,
             ownerId TEXT,
             accountId TEXT,
+            FOREIGN KEY (leadId) REFERENCES leads(id),
             FOREIGN KEY (ownerId) REFERENCES users(id),
             FOREIGN KEY (accountId) REFERENCES accounts(id)
         )
