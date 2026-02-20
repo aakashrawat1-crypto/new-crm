@@ -14,17 +14,30 @@ async function migrate() {
     await db.exec('DROP TABLE IF EXISTS products');
     await db.exec('DROP TABLE IF EXISTS users');
 
+
+    // Roles table
+    await db.exec(`
+    CREATE TABLE IF NOT EXISTS roles (
+        id TEXT PRIMARY KEY,
+        name TEXT UNIQUE NOT NULL,
+        description TEXT
+    )
+    `);
+
+
     // Users table
     await db.exec(`
         CREATE TABLE IF NOT EXISTS users (
-            id TEXT PRIMARY KEY,
-            createdAt TEXT,
-            name TEXT,
-            email TEXT UNIQUE,
-            password TEXT,
-            role TEXT
+        id TEXT PRIMARY KEY,
+        createdAt TEXT,
+        name TEXT,
+        email TEXT UNIQUE,
+        password TEXT,
+        roleId TEXT,
+        FOREIGN KEY (roleId) REFERENCES roles(id)
         )
     `);
+
 
     // Accounts table
     await db.exec(`
