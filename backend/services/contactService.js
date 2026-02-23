@@ -5,8 +5,11 @@ const opportunityRepository = require('../repositories/opportunityRepository');
 class ContactService {
     async createContact(data, user) {
         return await contactRepository.create({
-            ...data,
-            ownerId: user.id
+            Name: data.name || '',
+            Email: data.email || '',
+            Designation: data.title || '',
+            AccountID: data.accountId || null,
+            LastModified_By: user?.name || 'system'
         });
     }
 
@@ -15,14 +18,14 @@ class ContactService {
         const leads = await leadRepository.getAll();
         console.log(`[ContactService] Returning ${leads.length} leads as contacts`);
         return leads.map(l => ({
-            id: l.id,
-            name: l.fullName || 'Unknown',
-            email: l.email || '',
-            phone: l.mobile || l.officePhone || '',
-            title: l.jobTitle || 'Prospect',
-            status: l.status || 'New',
-            leadId: l.id,
-            createdAt: l.createdAt
+            id: l.ID,
+            name: l.Customer_Name || 'Unknown',
+            email: l.Customer_Email || '',
+            phone: '', // No phone in the new schema
+            title: l.Lead_Type || 'Prospect',
+            status: l.Status || 'New',
+            leadId: l.ID,
+            createdAt: l.Created_Date
         }));
     }
 

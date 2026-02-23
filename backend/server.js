@@ -17,6 +17,7 @@ const accountRoutes = require('./routes/accountRoutes');
 const opportunityRoutes = require('./routes/opportunityRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const productRoutes = require('./routes/productRoutes');
+const upsertRoutes = require('./routes/upsertRoutes');
 const dashboardController = require('./controllers/dashboardController');
 const { authenticate } = require('./middleware/authMiddleware');
 
@@ -27,6 +28,7 @@ app.use('/api/accounts', accountRoutes);
 app.use('/api/opportunities', opportunityRoutes);
 app.use('/api/contacts', contactRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/external/upsert', upsertRoutes);
 app.get('/api/dashboard', authenticate, dashboardController.getDashboardStats);
 
 app.get('/', (req, res) => {

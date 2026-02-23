@@ -26,38 +26,36 @@ class LeadService {
             // 1. Create Lead
             console.log('LeadService: Creating lead with accountId:', accountId);
             const lead = await leadRepository.create({
-                fullName: fullName || 'Unknown Lead',
-                jobTitle: jobTitle || '',
-                organizationName: organizationName || '',
-                email: email || '',
-                mobile: mobile || '',
-                officePhone: officePhone || '',
-                leadSource: leadSource || 'Other',
-                status: 'New',
-                ownerId: user?.id || 'system',
-                accountId: accountId
+                Customer_Name: fullName || 'Unknown Lead',
+                Account_ID: accountId,
+                Customer_Email: email || '',
+                Department: '',
+                Account: organizationName || '',
+                Sales_Manager: '',
+                Delivery_Manager: '',
+                Lead_Type: leadSource || 'Other',
+                Status: 'New',
+                Contract_Type: '',
+                LastModified_By: user?.name || 'system'
             });
-            console.log('LeadService: Lead created:', lead.id, 'with accountId:', lead.accountId);
+            console.log('LeadService: Lead created:', lead.id, 'with Account_ID:', accountId);
 
-            // 2. Create Opportunity linked to the Lead AND Account
+            // 2. Create Opportunity linked to the Lead AND Account (Leaving dummy objects due to existing relationships)
             const opportunity = await opportunityRepository.create({
                 leadId: lead.id,
                 accountId: accountId,
                 dealDetail: `Deal - ${organizationName || fullName}`,
                 stage: 'Discovery',
-                ownerId: user?.id || 'system'
+                ownerId: user?.id || 1
             });
 
             // 3. Auto-create a Contact entry from the Lead data
             const contact = await contactRepository.create({
-                name: fullName || 'Unknown Lead',
-                email: email || '',
-                phone: mobile || officePhone || '',
-                title: jobTitle || 'Prospect',
-                status: 'New',
-                leadId: lead.id,
-                ownerId: user?.id || 'system',
-                accountId: accountId
+                Name: fullName || 'Unknown Lead',
+                Email: email || '',
+                Designation: jobTitle || 'Prospect',
+                AccountID: accountId,
+                LastModified_By: user?.name || 'system'
             });
             console.log('LeadService: Contact auto-created:', contact.id, 'linked to lead:', lead.id);
 

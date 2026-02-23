@@ -2,11 +2,11 @@ const BaseRepository = require('./baseRepository');
 
 class LeadRepository extends BaseRepository {
     constructor() {
-        super('leads');
+        super('Leads');
     }
 
     async findByFullName(fullName) {
-        return await this.findOne('fullName = ?', [fullName]);
+        return await this.findOne('Customer_Name = ?', [fullName]);
     }
 }
 

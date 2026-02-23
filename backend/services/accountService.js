@@ -18,10 +18,9 @@ class AccountService {
         let account = await accountRepository.findByName(name);
         if (!account) {
             account = await accountRepository.create({
-                name,
-                ownerId: user?.id || 'system',
-                industry: 'Other',
-                website: ''
+                Name: name,
+                LastModified_By: user?.name || 'system',
+                Industry: 'Other'
             });
         }
         return account;
@@ -34,8 +33,21 @@ class AccountService {
         }
 
         return await accountRepository.create({
-            ...accountData,
-            ownerId: user?.id || 'system'
+            Name: accountData.name,
+            Industry: accountData.industry || 'Other',
+            Client_Classification: accountData.clientClassification || '',
+            Category: accountData.category || '',
+            Sub_Industry: accountData.subIndustry || '',
+            Geography: accountData.geography || '',
+            Account_Manager: accountData.accountManager || '',
+            Project_Manager: accountData.projectManager || '',
+            Delivery_Manager: accountData.deliveryManager || '',
+            Revenue: accountData.revenue || 0,
+            SFDC_Instances: accountData.sfdcInstances || 0,
+            Upsell_Opportunity_Area: accountData.upsellOpportunityArea || '',
+            Account_Status: accountData.status || 'Active',
+            CID: accountData.cid || '',
+            LastModified_By: user?.name || 'system'
         });
     }
 

@@ -3,20 +3,28 @@ const bcrypt = require('bcryptjs');
 const { generateToken } = require('../utils/jwtHelper');
 
 class AuthService {
-    async register(name, email, password, role = 'SALES_REP') {
+    async register(name, email, password, roleName = 'SALES_REP') {
         const existingUser = await userRepository.findByEmail(email);
         if (existingUser) {
             throw new Error('User already exists');
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
+
+        const roleRepository = require('../repositories/roleRepository');
+        let roleObj = await roleRepository.getRoleByName(roleName);
+        if (!roleObj) {
+            roleObj = await roleRepository.createRole({ name: roleName });
+        }
+
         const newUser = await userRepository.create({
             name,
             email,
             password: hashedPassword,
-            role
+            role_id: roleObj.id
         });
 
+        newUser.role = roleObj.name;
         const token = generateToken(newUser);
         return { user: { id: newUser.id, name: newUser.name, email: newUser.email, role: newUser.role }, token };
     }
@@ -32,6 +40,11 @@ class AuthService {
             throw new Error('Invalid credentials');
         }
 
+        const roleRepository = require('../repositories/roleRepository');
+        const roleObj = await roleRepository.getRoleById(user.role_id);
+        const roleName = roleObj ? roleObj.name : 'SALES_REP';
+        user.role = roleName;
+
         const token = generateToken(user);
         return { user: { id: user.id, name: user.name, email: user.email, role: user.role }, token };
     }
@@ -44,6 +57,11 @@ class AuthService {
         if (!user) {
             throw new Error('No user available for social login');
         }
+
+        const roleRepository = require('../repositories/roleRepository');
+        const roleObj = await roleRepository.getRoleById(user.role_id);
+        const roleName = roleObj ? roleObj.name : 'SALES_REP';
+        user.role = roleName;
 
         const token = generateToken(user);
         return {
@@ -83,13 +101,24 @@ class AuthService {
         // Find existing user or create one
         let user = await userRepository.findByEmail(email);
         if (!user) {
+            const roleRepository = require('../repositories/roleRepository');
+            let roleObj = await roleRepository.getRoleByName('SALES_REP');
+            if (!roleObj) {
+                roleObj = await roleRepository.createRole({ name: 'SALES_REP' });
+            }
+
             user = await userRepository.create({
                 name: name || email.split('@')[0],
                 email,
                 password: '', // No password for OAuth users
-                role: 'SALES_REP',
-                googleId,
+                role_id: roleObj.id
+                // googleId,
             });
+            user.role = roleObj.name;
+        } else {
+            const roleRepository = require('../repositories/roleRepository');
+            const roleObj = await roleRepository.getRoleById(user.role_id);
+            user.role = roleObj ? roleObj.name : 'SALES_REP';
         }
 
         const token = generateToken(user);
@@ -104,8 +133,11 @@ class AuthService {
         if (!user) {
             throw new Error('User not found');
         }
+        const roleRepository = require('../repositories/roleRepository');
+        const roleObj = await roleRepository.getRoleById(user.role_id);
+        const roleName = roleObj ? roleObj.name : 'SALES_REP';
         return {
-            user: { id: user.id, name: user.name, email: user.email, role: user.role }
+            user: { id: user.id, name: user.name, email: user.email, role: roleName }
         };
     }
 }

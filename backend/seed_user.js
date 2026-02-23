@@ -11,17 +11,21 @@ async function seed() {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     console.log(`Checking if user ${email} exists...`);
-    const existing = await db.get('SELECT * FROM users WHERE email = ?', [email]);
+    const existing = await db.get('SELECT * FROM UserInfo WHERE email = ?', [email]);
 
     if (!existing) {
         console.log('Fetching admin role ID...');
-        const adminRole = await db.get('SELECT id FROM roles WHERE name = ?', ['admin']);
-        if (!adminRole) throw new Error('Admin role not found');
+        let adminRole = await db.get('SELECT id FROM Roles WHERE role_name = ?', ['admin']);
+        if (!adminRole) {
+            console.log('Admin role not found, creating it...');
+            await db.run('INSERT INTO Roles (role_name) VALUES (?)', ['admin']);
+            adminRole = await db.get('SELECT id FROM Roles WHERE role_name = ?', ['admin']);
+        }
 
         console.log(`Creating user ${email}...`);
         await db.run(
-            'INSERT INTO users (id, name, email, password, roleId, createdAt) VALUES (?, ?, ?, ?, ?, ?)',
-            [uuidv4(), 'Admin User', email, hashedPassword, adminRole.id, new Date().toISOString()]
+            'INSERT INTO UserInfo (name, email, password, role_id) VALUES (?, ?, ?, ?)',
+            ['Admin User', email, hashedPassword, adminRole.id]
         );
 
         console.log('Default admin user created successfully.');
