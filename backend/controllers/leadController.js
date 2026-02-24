@@ -2,9 +2,29 @@ const leadService = require('../services/leadService');
 
 const createLead = async (req, res) => {
     try {
-        const result = await leadService.createLead(req.body, req.user);
+        // 1. data comes from frontend
+        const rawData = req.body;
+
+        // 2. React ke naamo ko Service ke required naamo mein Map karna
+        const mappedData = {
+            fullName: rawData.contactName || 'Unknown Contact', // React 'contactName' -> Service 'fullName'
+            organizationName: rawData.companyName || 'Unknown Org', // React 'companyName' -> Service 'organizationName'
+            jobTitle: rawData.title || '',                       // React 'title' -> Service 'jobTitle'
+            email: rawData.email || '',
+            mobile: rawData.phone || '',                         // React 'phone' -> Service 'mobile'
+            officePhone: rawData.officePhone || '',
+            leadSource: rawData.leadSource || 'Inbound',
+            description: rawData.description || ''
+        };
+
+        // 3. Mapped data ko service mein bhej dena
+        // Agar auth middleware se req.user nahi aa raha, toh ek dummy user pass kar rahe hain
+        const user = req.user || { id: 1, name: 'System Admin' };
+
+        const result = await leadService.createLead(mappedData, user);
         res.status(201).json(result);
     } catch (error) {
+        console.error("Lead Creation Error:", error);
         res.status(500).json({ message: error.message });
     }
 };
