@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { Users, Briefcase, DollarSign, CheckCircle2, TrendingUp } from 'lucide-react';
 import { motion, motionValue, useSpring } from 'framer-motion';
+import ProfileCard from '../components/ProfileCard';
 
 const Sparkline = ({ data, color }) => {
     const min = Math.min(...data);
@@ -392,8 +393,8 @@ const Dashboard = () => {
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
             <header className="mb-10 flex items-end justify-between">
                 <div>
-                    <h2 className="text-4xl font-bold text-[var(--text-primary)] tracking-tight">Intelligence Center</h2>
-                    <p className="text-[var(--text-secondary)] mt-1 font-medium opacity-60 uppercase text-[10px] tracking-widest">Aggregated Node Performance Data</p>
+                    <h2 className="text-4xl font-bold text-[var(--text-primary)] tracking-tight">Penguin CRM</h2>
+                    <p className="text-[var(--text-secondary)] mt-1 font-medium opacity-60 uppercase text-[10px] tracking-widest">Customer Management, Done Right.</p>
                 </div>
                 <div className="hidden md:block py-2 px-4 bg-[var(--card)] border border-[var(--input-border)] rounded-full">
                     <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest flex items-center gap-2">
@@ -444,12 +445,13 @@ const Dashboard = () => {
             </div>
 
             <footer className="mt-16 text-center">
-                <p className="text-[10px] text-[var(--text-secondary)] tracking-[0.2em] font-medium uppercase opacity-30">
-                    Smart CRM
+                <p className="text-[30px] text-[var(--text-secondary)] tracking-[0.2em] font-medium uppercase opacity-30">
+                    🐧
                 </p>
             </footer>
         </div>
     );
+
 };
 
 export default Dashboard;

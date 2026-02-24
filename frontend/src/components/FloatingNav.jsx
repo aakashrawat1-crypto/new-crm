@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutDashboard, Users, Building2, Briefcase, UserCircle, LogOut, Sun, Moon, Grid } from 'lucide-react';
+import { LayoutDashboard, Users, Building2, Briefcase, Contact, UserCircle, LogOut, Sun, Moon, Grid } from 'lucide-react';
 import useAuth from '../hooks/useAuth';
 import { useTheme } from '../context/ThemeContext';
 
@@ -12,7 +12,7 @@ const navItems = [
     { name: 'Leads', href: '/leads', icon: Users },
     { name: 'Accounts', href: '/accounts', icon: Building2 },
     { name: 'Opportunities', href: '/opportunities', icon: Briefcase },
-    { name: 'Contacts', href: '/contacts', icon: UserCircle },
+    { name: 'Contacts', href: '/contacts', icon: Contact },
 ];
 
 const FloatingNav = () => {
@@ -81,6 +81,35 @@ const FloatingNav = () => {
                 })}
 
                 <motion.div layout transition={layoutTransition} className="w-[1px] h-5 bg-white/10 mx-0.5" />
+
+                {/* Profile Section */}
+                <MotionLink
+                    to="/profile"
+                    layout
+                    transition={layoutTransition}
+                    onMouseEnter={() => setHoveredIndex('profile')}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                    className={`h-11 flex items-center rounded-[20px] px-3.5 gap-2 no-underline overflow-hidden relative group`}
+                    animate={{
+                        backgroundColor: location.pathname === '/profile' ? 'rgba(59, 130, 246, 0.15)' : 'rgba(255, 255, 255, 0)',
+                        color: location.pathname === '/profile' || hoveredIndex === 'profile' ? '#60a5fa' : 'rgba(255, 255, 255, 0.7)'
+                    }}
+                >
+                    <UserCircle size={19} className="flex-shrink-0" />
+                    <AnimatePresence initial={false}>
+                        {(location.pathname === '/profile' || hoveredIndex === 'profile') && (
+                            <motion.span
+                                initial={{ opacity: 0, width: 0 }}
+                                animate={{ opacity: 1, width: 'auto' }}
+                                exit={{ opacity: 0, width: 0 }}
+                                transition={{ duration: 0.15 }}
+                                className="text-sm font-semibold whitespace-nowrap overflow-hidden"
+                            >
+                                Profile
+                            </motion.span>
+                        )}
+                    </AnimatePresence>
+                </MotionLink>
 
                 {/* Theme Toggle */}
                 <motion.button

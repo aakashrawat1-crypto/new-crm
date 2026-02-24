@@ -12,6 +12,7 @@ import AccountDetail from './pages/AccountDetail';
 import OpportunitiesList from './pages/OpportunitiesList';
 import OpportunityDetail from './pages/OpportunityDetail';
 import ContactsList from './pages/ContactsList';
+import Profile from './pages/Profile';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
@@ -35,6 +36,7 @@ function App() {
                                 <Route path="/opportunities" element={<OpportunitiesList />} />
                                 <Route path="/opportunities/:id" element={<OpportunityDetail />} />
                                 <Route path="/contacts" element={<ContactsList />} />
+                                <Route path="/profile" element={<Profile />} />
                                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
                             </Route>
                         </Route>

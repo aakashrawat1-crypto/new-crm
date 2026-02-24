@@ -90,11 +90,51 @@
       "contactName": "Batman Singh",
       "email": "batman@grazziti.com",
       "phone": "9574834589",
-      "status": "New",
+      "status": "Closed Won",
       "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
       "accountId": "9005e6fe-1ce7-4ec8-a0a2-bbd16b21320a",
       "contactId": "b3ed820c-cd07-406f-afb3-78778e24d8c2",
-      "opportunityId": "5c5eed76-a01d-4588-b8d1-31b275ed06be"
+      "opportunityId": "5c5eed76-a01d-4588-b8d1-31b275ed06be",
+      "updatedAt": "2026-02-18T10:33:43.656Z"
+    },
+    {
+      "id": "a364ed50-d1c5-4794-80ad-5a1aae0c040f",
+      "createdAt": "2026-02-19T04:35:22.042Z",
+      "companyName": "Oscorp",
+      "contactName": "Peter Parker",
+      "email": "spiderman@gmail.com",
+      "phone": "5678456534",
+      "status": "New",
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "accountId": "3000908c-46eb-4f8f-9a9c-6fdcfa7f6610",
+      "contactId": "5f837294-c030-4233-b5aa-d0a519edc0ad",
+      "opportunityId": "f3ada2b2-55e6-4efe-829a-1e3a4645a73f"
+    },
+    {
+      "id": "bbd71ab1-158e-42d8-88d7-07c757902301",
+      "createdAt": "2026-02-19T04:36:50.414Z",
+      "companyName": "Strak ",
+      "contactName": "tony stark",
+      "email": "ironman@gmail.com",
+      "phone": "7465783344",
+      "status": "New",
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "accountId": "5c1366ba-a187-491b-b176-23ac6fac3afc",
+      "contactId": "f77bfea8-ef7e-4e9e-8b68-01759fedb4a3",
+      "opportunityId": "8592a8f4-3eb1-428f-bef3-31432bcb4e21"
+    },
+    {
+      "id": "193c6aa9-7f82-4b35-8530-e170d92b0cc3",
+      "createdAt": "2026-02-23T08:16:14.064Z",
+      "companyName": "Test Inc",
+      "contactName": "John Doe",
+      "email": "john@test.com",
+      "phone": "1234567890",
+      "status": "New",
+      "ownerId": "test_user",
+      "accountId": "5d5b8122-8f67-4cf9-8f89-0fa3640c3cdf",
+      "contactId": "bba2af59-f0b5-48cb-a374-a809e6ed7c67",
+      "opportunityId": "5b8bc64e-662a-4ff2-afa5-73bd800fa0bb"
     }
   ],
   "accounts": [
@@ -124,6 +164,27 @@
       "createdAt": "2026-02-18T07:00:54.911Z",
       "name": "infosys",
       "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "status": "New"
+    },
+    {
+      "id": "3000908c-46eb-4f8f-9a9c-6fdcfa7f6610",
+      "createdAt": "2026-02-19T04:35:22.010Z",
+      "name": "Oscorp",
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "status": "New"
+    },
+    {
+      "id": "5c1366ba-a187-491b-b176-23ac6fac3afc",
+      "createdAt": "2026-02-19T04:36:50.392Z",
+      "name": "Strak ",
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "status": "New"
+    },
+    {
+      "id": "5d5b8122-8f67-4cf9-8f89-0fa3640c3cdf",
+      "createdAt": "2026-02-23T08:16:14.001Z",
+      "name": "Test Inc",
+      "ownerId": "test_user",
       "status": "New"
     }
   ],
@@ -192,7 +253,40 @@
       "email": "batman@grazziti.com",
       "phone": "9574834589",
       "title": "Undefined",
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "revenue": "2000",
+      "closedWonRevenue": "2000",
+      "updatedAt": "2026-02-18T10:33:43.643Z"
+    },
+    {
+      "id": "5f837294-c030-4233-b5aa-d0a519edc0ad",
+      "createdAt": "2026-02-19T04:35:22.034Z",
+      "accountId": "3000908c-46eb-4f8f-9a9c-6fdcfa7f6610",
+      "name": "Peter Parker",
+      "email": "spiderman@gmail.com",
+      "phone": "5678456534",
+      "title": "Spider",
       "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6"
+    },
+    {
+      "id": "f77bfea8-ef7e-4e9e-8b68-01759fedb4a3",
+      "createdAt": "2026-02-19T04:36:50.396Z",
+      "accountId": "5c1366ba-a187-491b-b176-23ac6fac3afc",
+      "name": "tony stark",
+      "email": "ironman@gmail.com",
+      "phone": "7465783344",
+      "title": "Robotics",
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6"
+    },
+    {
+      "id": "bba2af59-f0b5-48cb-a374-a809e6ed7c67",
+      "createdAt": "2026-02-23T08:16:14.032Z",
+      "accountId": "5d5b8122-8f67-4cf9-8f89-0fa3640c3cdf",
+      "name": "John Doe",
+      "email": "john@test.com",
+      "phone": "1234567890",
+      "title": "Manager",
+      "ownerId": "test_user"
     }
   ],
   "opportunities": [
@@ -206,7 +300,11 @@
       "closeDate": "2026-02-17T10:41:16.188Z",
       "ownerId": "fc260726-0140-4dbc-ba44-9738dd7f844a",
       "description": "react dev",
-      "updatedAt": "2026-02-17T10:41:16.188Z"
+      "updatedAt": "2026-02-19T08:12:59.792Z",
+      "git": "",
+      "pmChecklist": "",
+      "qbrNotes": "",
+      "productIds": []
     },
     {
       "id": "8e7ecdc5-558d-4f16-a027-c7e12b1b9319",
@@ -257,11 +355,45 @@
       "createdAt": "2026-02-18T07:00:54.937Z",
       "accountId": "9005e6fe-1ce7-4ec8-a0a2-bbd16b21320a",
       "name": "Deal - infosys",
+      "stage": "Closed Won",
+      "value": 2000,
+      "closeDate": "2026-02-18T10:33:43.650Z",
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "description": "",
+      "updatedAt": "2026-02-18T10:33:43.651Z"
+    },
+    {
+      "id": "f3ada2b2-55e6-4efe-829a-1e3a4645a73f",
+      "createdAt": "2026-02-19T04:35:22.039Z",
+      "accountId": "3000908c-46eb-4f8f-9a9c-6fdcfa7f6610",
+      "name": "Deal - Oscorp",
       "stage": "Prospect",
       "value": 0,
       "closeDate": null,
       "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
       "description": ""
+    },
+    {
+      "id": "8592a8f4-3eb1-428f-bef3-31432bcb4e21",
+      "createdAt": "2026-02-19T04:36:50.401Z",
+      "accountId": "5c1366ba-a187-491b-b176-23ac6fac3afc",
+      "name": "Deal - Strak ",
+      "stage": "Prospect",
+      "value": 0,
+      "closeDate": null,
+      "ownerId": "9de216cf-e39f-44c8-845c-a50e4aaa6ff6",
+      "description": ""
+    },
+    {
+      "id": "5b8bc64e-662a-4ff2-afa5-73bd800fa0bb",
+      "createdAt": "2026-02-23T08:16:14.049Z",
+      "accountId": "5d5b8122-8f67-4cf9-8f89-0fa3640c3cdf",
+      "name": "Deal - Test Inc",
+      "stage": "Prospect",
+      "value": 0,
+      "closeDate": null,
+      "ownerId": "test_user",
+      "description": "Test"
     }
   ],
   "products": []

@@ -137,7 +137,11 @@ const OpportunitiesList = () => {
                 </div>
             </div>
 
-            {/* Empty State / Footer */}
+            <footer className="mt-16 text-center">
+                <p className="text-[30px] text-[var(--text-secondary)] tracking-[0.2em] font-medium uppercase opacity-30">
+                    🐧
+                </p>
+            </footer>
             {opportunities.length === 0 && !loading && (
                 <div className="p-16 text-center border-2 border-dashed border-[var(--input-border)] rounded-[40px] opacity-40">
                     <p className="text-sm font-medium text-[var(--text-secondary)]">

@@ -333,10 +333,10 @@ const ContactsList = () => {
                                             </td>
                                             <td className="px-8 py-6">
                                                 <div className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border ${contact.status === 'Active' || contact.status === 'Verified' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' :
-                                                        contact.status === 'Converted' || contact.status === 'Closed Won' ? 'bg-indigo-500/10 text-indigo-500 border-indigo-500/20' :
-                                                            contact.status === 'New' ? 'bg-cyan-500/10 text-cyan-500 border-cyan-500/20' :
-                                                                contact.status === 'Closed Lost' ? 'bg-rose-500/10 text-rose-500 border-rose-500/20' :
-                                                                    'bg-amber-500/10 text-amber-500 border-amber-500/20'
+                                                    contact.status === 'Converted' || contact.status === 'Closed Won' ? 'bg-indigo-500/10 text-indigo-500 border-indigo-500/20' :
+                                                        contact.status === 'New' ? 'bg-cyan-500/10 text-cyan-500 border-cyan-500/20' :
+                                                            contact.status === 'Closed Lost' ? 'bg-rose-500/10 text-rose-500 border-rose-500/20' :
+                                                                'bg-amber-500/10 text-amber-500 border-amber-500/20'
                                                     }`}>
                                                     {contact.status || 'Active'}
                                                 </div>
@@ -363,8 +363,8 @@ const ContactsList = () => {
 
             {/* Footer */}
             <footer className="mt-16 text-center opacity-30 select-none">
-                <span className="text-[9px] tracking-[0.5em] font-bold uppercase text-[var(--text-primary)]">
-                    Smart CRM
+                <span className="text-[30px] tracking-[0.5em] font-bold uppercase text-[var(--text-primary)]">
+                    🐧
                 </span>
             </footer>
         </motion.div>

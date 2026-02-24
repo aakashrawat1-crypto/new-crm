@@ -129,7 +129,7 @@ const AccountsList = () => {
             {/* Pagination/Meta */}
             <div className="flex items-center justify-center gap-2 opacity-20 mt-4">
                 <div className="w-8 h-[1px] bg-[var(--text-primary)]"></div>
-                <div className="text-[10px] uppercase font-bold tracking-[0.4em] text-[var(--text-primary)]">Antigravity Core</div>
+                <div className="text-[30px] uppercase font-bold tracking-[0.4em] text-[var(--text-primary)]">🐧</div>
                 <div className="w-8 h-[1px] bg-[var(--text-primary)]"></div>
             </div>
         </motion.div>
